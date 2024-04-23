@@ -9,8 +9,8 @@ pygame.init()
 
 # Set up display
 FPS = 30
-screen_width = 512
-screen_height = 512
+screen_width = 256
+screen_height = 256
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Memory Game")
 
@@ -37,9 +37,8 @@ def main_menu():
     x_position = (screen_width - button_width) / 2
 
     # Define buttons with new centered positions
-    play_4x4_button = Button(x_position, 150, button_width, button_height, WHITE, BLUE, 'Play 4x4', 22)
-    play_8x8_button = Button(x_position, 225, button_width, button_height, WHITE, BLUE, 'Play 8x8', 22)
-    exit_button = Button(x_position, 300, button_width, button_height, WHITE, RED, 'Exit', 22)
+    play_4x4_button = Button(x_position, 50, button_width, button_height, WHITE, BLUE, 'start game', 22)
+    exit_button = Button(x_position, 150, button_width, button_height, WHITE, RED, 'Exit', 22)
     
     while True:
         screen.fill(GRAY)
@@ -50,15 +49,12 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_4x4_button.is_pressed(event.pos, pygame.mouse.get_pressed()):
                     return 4
-                elif play_8x8_button.is_pressed(event.pos, pygame.mouse.get_pressed()):
-                    return 6
                 elif exit_button.is_pressed(event.pos, pygame.mouse.get_pressed()):
                     pygame.quit()
                     sys.exit()
 
         # Draw buttons on the screen centered
         screen.blit(play_4x4_button.image, (play_4x4_button.x, play_4x4_button.y))
-        screen.blit(play_8x8_button.image, (play_8x8_button.x, play_8x8_button.y))
         screen.blit(exit_button.image, (exit_button.x, exit_button.y))
 
         pygame.display.update()
@@ -68,7 +64,7 @@ def main(grid_size):
     CARD_WIDTH, CARD_HEIGHT = 64, 64
     ROWS, COLS = grid_size, grid_size
     WIDTH, HEIGHT = CARD_WIDTH * COLS, CARD_HEIGHT * ROWS
-    screen = pygame.display.set_mode((512, 512))
+    screen = pygame.display.set_mode((screen_width, screen_height))
 
     card_names = load_card_names('_cards.csv')[:grid_size**2//2]
     card_images = []
