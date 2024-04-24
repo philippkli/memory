@@ -119,6 +119,20 @@ def main(grid_size):
                 temp_flipped_cards = []
                 draw_grid()
 
+    def check_win_condition():
+        return matched_pairs == len(card_names)
+    
+    def clear_grid():
+        screen.fill(GRAY)
+        pygame.display.update()
+        
+    def display_win_screen():
+        font = pygame.font.SysFont('./Arial.ttf', 22)
+        text = font.render("Glückwunsch! Du hast gewonnen!", True, GREEN)
+        text_rect = text.get_rect(center=(screen_width // 2, screen_height // 2))
+        screen.blit(text, text_rect)
+        pygame.display.update()
+
     create_grid()
     clock = pygame.time.Clock()
     running = True
@@ -133,6 +147,10 @@ def main(grid_size):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if matched_pairs < len(card_names):
                     check_card_click(pygame.mouse.get_pos())
+
+        if check_win_condition():
+            clear_grid()
+            display_win_screen()
 
         clock.tick(FPS)
 
